@@ -1,0 +1,12 @@
+version: "3.3"
+services: 
+    web:
+        image: httpd
+        deploy:
+            replicas: 3
+        ports: 
+            - "8080:80"
+    db:
+        image: redis
+        deploy:
+            replicas: 2

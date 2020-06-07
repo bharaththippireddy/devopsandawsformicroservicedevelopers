@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: mywebserver
+    labels:
+        app: httpd
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            app: httpd
+    template:
+        metadata:
+            labels:
+                app: httpd
+        spec:
+            containers:
+                - name: myhttpd
+                  image: httpd
+                  ports:
+                    - containerPort: 80
+                  volumeMounts:
+                    - name: demovol
+                      mountPath: /data
+                    - name: demo-configmap-vol
+                      mountPath: /etc/config
+                    - name: demo-pvc
+                      mountPath: /data/clustervol
+            volumes:
+                - name: demovol
+                  hostPath: 
+                    path: /data
+                    type: Directory
+                - name: demo-configmap-vol
+                  configMap:
+                    name: demo-configmap
+                - name: demo-pvc
+                  persistentVolumeClaim:
+                    claimName: demo-pvc

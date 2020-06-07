@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: product-app
+    labels:
+        app: product-app
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: product-app
+    template:
+        metadata:
+            name: product-app
+            labels:
+                app: product-app
+        spec:
+            containers:
+                - name: product-app
+                  image: bharatht19/productservice

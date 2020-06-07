@@ -1,0 +1,24 @@
+#A'int markup language
+# Super set of JSON
+#Simple Types
+#Lists
+#Objects
+#Dictionary or Map
+#Using A yaml validator
+customerName: Bharath
+orderId: 123
+date: 12/12/2020
+shipped: false
+moreData: null
+products:
+    - name: mac
+      price: 1500
+      quantiy: 3
+    - name: Iphone
+
+    - name: Desktop
+address:
+    street: SpringField
+    city: Austin
+    
+

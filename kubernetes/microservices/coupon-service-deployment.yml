@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: coupon-app
+    labels:
+        app: coupon-app
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: coupon-app
+    template:
+        metadata:
+            name: coupon-app
+            labels:
+                app: coupon-app
+        spec:
+            containers:
+                - name: coupon-app
+                  image: bharatht19/couponservice

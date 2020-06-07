@@ -1,0 +1,41 @@
+version: '3'
+services:
+    product-app:
+        container_name: product-app
+        image: bharatht19/productservice
+        restart: on-failure
+        ports: 
+            - 10666:9090
+        environment: 
+            WAIT_HOSTS: mysql:3306
+        depends_on: 
+            - docker-mysql 
+            - coupon-app
+    coupon-app:
+        container_name: coupon-app
+        image: bharatht19/couponservice
+        restart: on-failure
+        ports: 
+            - 10555:9091
+        environment: 
+            WAIT_HOSTS: mysql:3306
+        depends_on: 
+            - docker-mysql
+    docker-mysql:
+        container_name: docker-mysql
+        image: mysql
+        restart: always
+        environment: 
+            MYSQL_DATABASE: mydb
+            MYSQL_ROOT_PASSWORD: test1234
+            MYSQL_ROOT_HOST: '%'
+        volumes:
+            - ./sql:/docker-entrypoint-initdb.d
+        ports:
+            - 6666:3306
+        healthcheck:
+            test: "/usr/bin/mysql --user=root --password=test1234 --execute \"SHOW DATABASES \""
+            interval: 4s
+            timeout: 20s
+            retries: 5
+        
